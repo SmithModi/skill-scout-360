@@ -6,7 +6,7 @@ import { JobRoleCard } from "@/components/JobRoleCard";
 import { QuestionCard } from "@/components/QuestionCard";
 import { ResultsCard } from "@/components/ResultsCard";
 import { toast } from "@/components/ui/use-toast";
-import { Message, MonitorSmartphone, LineChart, Clock, User } from "lucide-react";
+import { MessageSquare, MonitorSmartphone, LineChart, Clock, User } from "lucide-react";
 
 // Mock interview questions for different roles
 const mockQuestions = {
@@ -98,7 +98,7 @@ const jobRoles = [
     id: "socialMedia",
     title: "Social Media Manager",
     description: "Strategic role managing brand presence and engagement across social platforms.",
-    icon: <Message className="h-5 w-5" />,
+    icon: <MessageSquare className="h-5 w-5" />,
     skills: ["Content Strategy", "Analytics", "Campaign Management", "Community Building", "Trend Analysis"]
   }
 ];
@@ -254,7 +254,7 @@ export default function Index() {
                 <span>10 Questions</span>
               </div>
               <div className="flex items-center gap-2">
-                <Message className="h-4 w-4" />
+                <MessageSquare className="h-4 w-4" />
                 <span>AI Feedback</span>
               </div>
               <div className="flex items-center gap-2">
