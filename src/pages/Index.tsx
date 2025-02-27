@@ -8,79 +8,259 @@ import { ResultsCard } from "@/components/ResultsCard";
 import { toast } from "@/components/ui/use-toast";
 import { MessageSquare, MonitorSmartphone, LineChart, Clock, User } from "lucide-react";
 
-// Mock interview questions for different roles
+// Mock MCQ interview questions for different roles
 const mockQuestions = {
   sde: [
-    "Explain the difference between a stack and a queue. When would you use one over the other?",
-    "What is your approach to debugging a complex issue in production code?",
-    "How do you ensure your code is maintainable for other developers?",
-    "Explain the concept of time and space complexity. Give an example of an O(n²) algorithm.",
-    "Describe a situation where you had to optimize code performance. What techniques did you use?",
-    "What design patterns have you implemented in your projects? Explain one in detail.",
-    "How do you approach testing your code? What types of tests do you typically write?",
-    "Explain the concept of API versioning and why it's important.",
-    "How do you stay updated with the latest technologies and programming practices?",
-    "Describe a challenging technical problem you solved recently and how you approached it."
+    {
+      question: "What data structure would be most appropriate for implementing a task scheduler with priority levels?",
+      options: [
+        { id: "a", text: "Array" },
+        { id: "b", text: "Linked List" },
+        { id: "c", text: "Priority Queue (Heap)" },
+        { id: "d", text: "Hash Table" }
+      ],
+      correctAnswer: "c"
+    },
+    {
+      question: "Which time complexity represents the worst-case scenario for quicksort?",
+      options: [
+        { id: "a", text: "O(n)" },
+        { id: "b", text: "O(n log n)" },
+        { id: "c", text: "O(n²)" },
+        { id: "d", text: "O(log n)" }
+      ],
+      correctAnswer: "c"
+    },
+    {
+      question: "What is the primary purpose of the Virtual DOM in React?",
+      options: [
+        { id: "a", text: "To directly manipulate the browser's DOM" },
+        { id: "b", text: "To completely replace the need for a DOM" },
+        { id: "c", text: "To optimize rendering by minimizing direct DOM manipulation" },
+        { id: "d", text: "To create 3D user interfaces" }
+      ],
+      correctAnswer: "c"
+    },
+    {
+      question: "Which design pattern allows an object to alter its behavior when its internal state changes?",
+      options: [
+        { id: "a", text: "Observer Pattern" },
+        { id: "b", text: "Factory Pattern" },
+        { id: "c", text: "State Pattern" },
+        { id: "d", text: "Decorator Pattern" }
+      ],
+      correctAnswer: "c"
+    },
+    {
+      question: "What is the primary advantage of using microservices architecture?",
+      options: [
+        { id: "a", text: "Simplicity of development" },
+        { id: "b", text: "Reduced deployment complexity" },
+        { id: "c", text: "Independent scaling and development of components" },
+        { id: "d", text: "Lower infrastructure costs" }
+      ],
+      correctAnswer: "c"
+    },
+    {
+      question: "Which of the following is NOT a principle of REST architecture?",
+      options: [
+        { id: "a", text: "Stateless communication" },
+        { id: "b", text: "Cacheable responses" },
+        { id: "c", text: "Uniform interface" },
+        { id: "d", text: "Persistent connections" }
+      ],
+      correctAnswer: "d"
+    },
+    {
+      question: "What is the main purpose of database normalization?",
+      options: [
+        { id: "a", text: "To improve query performance" },
+        { id: "b", text: "To reduce data redundancy and dependency" },
+        { id: "c", text: "To increase database size" },
+        { id: "d", text: "To support more concurrent connections" }
+      ],
+      correctAnswer: "b"
+    },
+    {
+      question: "In the context of version control, what is the purpose of a 'merge conflict'?",
+      options: [
+        { id: "a", text: "To indicate hardware failures" },
+        { id: "b", text: "To identify when two branches have incompatible changes" },
+        { id: "c", text: "To prevent unauthorized access" },
+        { id: "d", text: "To optimize repository storage" }
+      ],
+      correctAnswer: "b"
+    },
+    {
+      question: "Which encryption approach is more suitable for secure password storage?",
+      options: [
+        { id: "a", text: "Symmetric encryption" },
+        { id: "b", text: "Asymmetric encryption" },
+        { id: "c", text: "One-way hashing with salt" },
+        { id: "d", text: "Plain text with access controls" }
+      ],
+      correctAnswer: "c"
+    },
+    {
+      question: "What is the role of a load balancer in a web architecture?",
+      options: [
+        { id: "a", text: "To manage session data" },
+        { id: "b", text: "To distribute incoming traffic across multiple servers" },
+        { id: "c", text: "To compress web content" },
+        { id: "d", text: "To encrypt user data" }
+      ],
+      correctAnswer: "b"
+    }
   ],
   socialMedia: [
-    "How do you measure the success of a social media campaign?",
-    "Describe your experience with content creation and management across different platforms.",
-    "How do you adapt content strategy based on platform-specific analytics?",
-    "What tools do you use for social media scheduling and analytics?",
-    "How do you handle a social media crisis or negative publicity?",
-    "Describe your approach to growing engagement on a new social media account.",
-    "How do you stay current with social media trends and algorithm changes?",
-    "What strategies have you used to increase conversion from social media traffic?",
-    "How do you develop a distinctive brand voice across different social platforms?",
-    "Describe a successful social media campaign you managed and what made it effective."
+    {
+      question: "Which metric is most valuable for measuring engagement on social media?",
+      options: [
+        { id: "a", text: "Number of followers" },
+        { id: "b", text: "Reach" },
+        { id: "c", text: "Engagement rate (likes, comments, shares relative to audience)" },
+        { id: "d", text: "Post frequency" }
+      ],
+      correctAnswer: "c"
+    },
+    {
+      question: "What is the optimal strategy for handling a social media crisis?",
+      options: [
+        { id: "a", text: "Ignore negative comments to avoid amplifying them" },
+        { id: "b", text: "Delete critical posts immediately" },
+        { id: "c", text: "Respond quickly, acknowledge the issue, and offer solutions" },
+        { id: "d", text: "Disable comments until the issue blows over" }
+      ],
+      correctAnswer: "c"
+    },
+    {
+      question: "Which approach is most effective for growing organic reach on Facebook?",
+      options: [
+        { id: "a", text: "Posting as frequently as possible" },
+        { id: "b", text: "Creating content that generates meaningful interactions" },
+        { id: "c", text: "Using as many hashtags as possible" },
+        { id: "d", text: "Focusing exclusively on video content" }
+      ],
+      correctAnswer: "b"
+    },
+    {
+      question: "What is the primary purpose of a social media content calendar?",
+      options: [
+        { id: "a", text: "To impress clients with organization" },
+        { id: "b", text: "To track competitor posting schedules" },
+        { id: "c", text: "To ensure consistent, strategic posting aligned with goals" },
+        { id: "d", text: "To maximize the number of posts per day" }
+      ],
+      correctAnswer: "c"
+    },
+    {
+      question: "Which strategy is most effective for increasing conversion from social media traffic?",
+      options: [
+        { id: "a", text: "Increasing post frequency" },
+        { id: "b", text: "Creating platform-specific landing pages with clear CTAs" },
+        { id: "c", text: "Using more hashtags" },
+        { id: "d", text: "Focusing only on growing followers" }
+      ],
+      correctAnswer: "b"
+    },
+    {
+      question: "What is the best approach to determine the optimal posting time on social media?",
+      options: [
+        { id: "a", text: "Post when competitors are posting" },
+        { id: "b", text: "Always post during business hours" },
+        { id: "c", text: "Analyze your audience data and engagement patterns" },
+        { id: "d", text: "Follow industry-standard best times" }
+      ],
+      correctAnswer: "c"
+    },
+    {
+      question: "Which type of content typically generates the highest engagement on Instagram?",
+      options: [
+        { id: "a", text: "Text-heavy posts" },
+        { id: "b", text: "User-generated content and interactive stories" },
+        { id: "c", text: "Purely promotional content" },
+        { id: "d", text: "Corporate announcements" }
+      ],
+      correctAnswer: "b"
+    },
+    {
+      question: "What is the most important aspect of influencer marketing?",
+      options: [
+        { id: "a", text: "Working with influencers who have the largest following" },
+        { id: "b", text: "Finding influencers whose audience aligns with your target market" },
+        { id: "c", text: "Minimizing costs by choosing micro-influencers" },
+        { id: "d", text: "Creating viral content guaranteed to spread" }
+      ],
+      correctAnswer: "b"
+    },
+    {
+      question: "Which approach to social media analytics provides the most value?",
+      options: [
+        { id: "a", text: "Focusing primarily on vanity metrics like likes and shares" },
+        { id: "b", text: "Looking at competitor data only" },
+        { id: "c", text: "Connecting social data to business goals and conversion metrics" },
+        { id: "d", text: "Analyzing trending hashtags" }
+      ],
+      correctAnswer: "c"
+    },
+    {
+      question: "What is the best way to adapt to social media algorithm changes?",
+      options: [
+        { id: "a", text: "Increase posting frequency dramatically" },
+        { id: "b", text: "Create platform-native content that encourages meaningful engagement" },
+        { id: "c", text: "Switch platforms whenever algorithms change" },
+        { id: "d", text: "Pay for ads exclusively" }
+      ],
+      correctAnswer: "b"
+    }
   ]
 };
 
-// Mock AI feedback
+// Mock AI feedback based on score
 const mockFeedback = {
   high: {
     score: 85,
-    feedback: "Excellent performance! Your responses demonstrate strong knowledge and practical experience.",
+    feedback: "Excellent performance! Your responses demonstrate strong knowledge and practical expertise.",
     strengths: [
-      "Clear communication of complex concepts",
-      "Good mix of technical knowledge and practical examples",
-      "Well-structured answers with logical flow",
-      "Demonstrated problem-solving abilities"
+      "Strong understanding of core concepts",
+      "Ability to identify best practices and optimal solutions",
+      "Good grasp of technical/strategic fundamentals",
+      "Demonstrated advanced knowledge in specialized areas"
     ],
     improvements: [
-      "Could provide more specific examples in some answers",
-      "Consider quantifying achievements when possible",
-      "Slightly more depth on technical implementations would help"
+      "Review some advanced concepts that were missed",
+      "Consider exploring deeper specialized knowledge",
+      "Continue building practical experience in key areas"
     ]
   },
   medium: {
-    score: 68,
+    score: 65,
     feedback: "Good performance with solid fundamentals. Some areas could use more development.",
     strengths: [
       "Good understanding of key concepts",
-      "Clear communication style",
-      "Practical approach to problem-solving"
+      "Familiarity with industry best practices",
+      "Solid foundation in core principles"
     ],
     improvements: [
-      "Deepen technical knowledge in specific areas",
-      "Provide more concrete examples from past experience",
-      "Further develop explanations of complex processes",
-      "Consider different perspectives when answering"
+      "Deepen knowledge in specialized topics",
+      "Focus on understanding optimal strategies vs. common approaches",
+      "Review technical/strategic fundamentals that were missed",
+      "Consider hands-on practice with advanced concepts"
     ]
   },
   low: {
     score: 45,
-    feedback: "Your interview shows basic understanding but needs significant improvement in key areas.",
+    feedback: "Your results show basic understanding but need significant improvement in key areas.",
     strengths: [
-      "Enthusiasm for the subject matter",
-      "Basic understanding of fundamental concepts"
+      "Familiarity with some fundamental concepts",
+      "Understanding of basic principles"
     ],
     improvements: [
-      "Strengthen technical knowledge in core areas",
-      "Practice more structured responses",
-      "Develop more concrete examples to illustrate points",
-      "Work on deeper understanding of processes and methodologies",
-      "Consider preparing specific stories for common scenarios"
+      "Strengthen knowledge of core principles and best practices",
+      "Review industry-standard approaches and methodologies",
+      "Focus on understanding the reasoning behind optimal solutions",
+      "Consider formal training or guided learning in challenging areas",
+      "Practice applying concepts in realistic scenarios"
     ]
   }
 };
@@ -129,10 +309,10 @@ export default function Index() {
   };
 
   // Handle moving to the next question
-  const handleNextQuestion = (answer: string) => {
+  const handleNextQuestion = (selectedOptionId: string) => {
     // Save the current answer
     const newAnswers = [...answers];
-    newAnswers[currentQuestionIndex] = answer;
+    newAnswers[currentQuestionIndex] = selectedOptionId;
     setAnswers(newAnswers);
     
     // Check if this was the last question
@@ -152,10 +332,26 @@ export default function Index() {
     }
   };
 
+  // Calculate score based on correct answers
+  const calculateScore = (answers: string[]) => {
+    if (!selectedRole) return 0;
+    
+    const questions = mockQuestions[selectedRole as keyof typeof mockQuestions];
+    let correctCount = 0;
+    
+    answers.forEach((answer, index) => {
+      if (answer === questions[index].correctAnswer) {
+        correctCount++;
+      }
+    });
+    
+    return Math.round((correctCount / questions.length) * 100);
+  };
+
   // Submit all answers and show results
   const handleSubmitInterview = (finalAnswers: string[]) => {
-    // In a real app, this would send the answers to an API for processing
-    console.log("Submitting answers:", finalAnswers);
+    // Calculate score based on correct answers
+    const score = calculateScore(finalAnswers);
     
     // Show processing toast
     toast({
@@ -166,9 +362,21 @@ export default function Index() {
     
     // Simulate AI processing time
     setTimeout(() => {
-      // For the demo, randomly select feedback type
-      const feedbackTypes = ["high", "medium", "low"];
-      const selectedFeedback = mockFeedback[feedbackTypes[Math.floor(Math.random() * feedbackTypes.length)]];
+      // Determine feedback based on score
+      let feedbackType: "high" | "medium" | "low";
+      if (score >= 80) {
+        feedbackType = "high";
+      } else if (score >= 60) {
+        feedbackType = "medium";
+      } else {
+        feedbackType = "low";
+      }
+      
+      // Set custom score
+      const selectedFeedback = {
+        ...mockFeedback[feedbackType],
+        score: score
+      };
       
       // Set results and move to results stage
       setResults(selectedFeedback);
@@ -275,16 +483,19 @@ export default function Index() {
           >
             <div className="relative h-[500px]">
               <AnimatePresence mode="wait">
-                <QuestionCard
-                  key={currentQuestionIndex}
-                  questionNumber={currentQuestionIndex + 1}
-                  totalQuestions={10}
-                  question={mockQuestions[selectedRole as keyof typeof mockQuestions][currentQuestionIndex]}
-                  isActive={true}
-                  onNext={handleNextQuestion}
-                  onPrevious={handlePreviousQuestion}
-                  answer={answers[currentQuestionIndex] || ""}
-                />
+                {selectedRole && (
+                  <QuestionCard
+                    key={currentQuestionIndex}
+                    questionNumber={currentQuestionIndex + 1}
+                    totalQuestions={10}
+                    question={mockQuestions[selectedRole as keyof typeof mockQuestions][currentQuestionIndex].question}
+                    options={mockQuestions[selectedRole as keyof typeof mockQuestions][currentQuestionIndex].options}
+                    isActive={true}
+                    onNext={handleNextQuestion}
+                    onPrevious={handlePreviousQuestion}
+                    selectedOptionId={answers[currentQuestionIndex] || ""}
+                  />
+                )}
               </AnimatePresence>
             </div>
           </motion.div>

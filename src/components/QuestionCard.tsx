@@ -1,49 +1,46 @@
 
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
+
+interface QuestionOption {
+  id: string;
+  text: string;
+}
 
 interface QuestionCardProps {
   questionNumber: number;
   totalQuestions: number;
   question: string;
+  options: QuestionOption[];
   isActive: boolean;
-  onNext: (answer: string) => void;
+  onNext: (selectedOptionId: string) => void;
   onPrevious: () => void;
-  answer?: string;
+  selectedOptionId?: string;
 }
 
 export function QuestionCard({
   questionNumber,
   totalQuestions,
   question,
+  options,
   isActive,
   onNext,
   onPrevious,
-  answer = "",
+  selectedOptionId = "",
 }: QuestionCardProps) {
-  const [currentAnswer, setCurrentAnswer] = useState(answer);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [currentSelectedOption, setCurrentSelectedOption] = useState(selectedOptionId);
 
-  // Auto-resize textarea as content grows
-  const handleInput = () => {
-    const textarea = textareaRef.current;
-    if (textarea) {
-      textarea.style.height = 'auto';
-      textarea.style.height = `${textarea.scrollHeight}px`;
-    }
-  };
-
-  const handleAnswerChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setCurrentAnswer(e.target.value);
-    handleInput();
+  const handleOptionChange = (value: string) => {
+    setCurrentSelectedOption(value);
   };
 
   const handleSubmit = () => {
-    onNext(currentAnswer);
+    onNext(currentSelectedOption);
   };
 
   return (
@@ -69,19 +66,25 @@ export function QuestionCard({
           </div>
           <CardTitle className="text-2xl">{question}</CardTitle>
           <CardDescription className="mt-2">
-            Type your answer below. Be concise yet thorough.
+            Select the best answer from the options below.
           </CardDescription>
         </CardHeader>
         
         <CardContent className="flex-grow">
-          <Textarea
-            ref={textareaRef}
-            placeholder="Your answer..."
-            value={currentAnswer}
-            onChange={handleAnswerChange}
-            onInput={handleInput}
-            className="w-full h-full min-h-[200px] resize-none bg-secondary/50 p-4 rounded-lg border border-border/50 focus:border-primary/30"
-          />
+          <RadioGroup
+            value={currentSelectedOption}
+            onValueChange={handleOptionChange}
+            className="space-y-4 mt-2"
+          >
+            {options.map((option) => (
+              <div key={option.id} className="flex items-start space-x-3 p-3 rounded-md hover:bg-secondary/50 transition-colors">
+                <RadioGroupItem value={option.id} id={option.id} className="mt-1" />
+                <Label htmlFor={option.id} className="font-normal cursor-pointer flex-1">
+                  {option.text}
+                </Label>
+              </div>
+            ))}
+          </RadioGroup>
         </CardContent>
         
         <CardFooter className="flex justify-between mt-auto">
@@ -94,7 +97,7 @@ export function QuestionCard({
           </Button>
           <Button 
             onClick={handleSubmit}
-            disabled={!currentAnswer.trim()}
+            disabled={!currentSelectedOption}
           >
             {questionNumber === totalQuestions ? "Submit All" : "Next Question"}
           </Button>
